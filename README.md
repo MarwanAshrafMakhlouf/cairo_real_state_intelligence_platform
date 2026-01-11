@@ -101,7 +101,7 @@ Complete transparency on data sources, model architecture, validation approach, 
 ## 🚀 Installation
 
 ### Prerequisites
-- Python 3.11 or higher
+- Python 3.9 or higher
 - [uv](https://github.com/astral-sh/uv) package manager (recommended)
 
 ### Quick Start
@@ -267,7 +267,7 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 ## 🛠️ Tech Stack
 
 ### Core Technologies
-- **Python 3.11+** - Primary programming language
+- **Python 3.9+** - Primary programming language
 - **Streamlit** - Interactive web application framework
 - **Plotly** - Dynamic visualizations
 - **Pandas & NumPy** - Data manipulation
@@ -378,9 +378,9 @@ Property listing data was collected from public sources for educational and non-
 ## 📧 Contact
 
 **Your Name**
-- **GitHub:** [@yourusername](https://github.com/yourusername)
-- **LinkedIn:** [Your Profile](https://linkedin.com/in/yourprofile)
-- **Email:** your.email@example.com
+- **GitHub:** [@MarwanAshrafMakhlouf](https://github.com/MarwanAshrafMakhlouf)
+- **LinkedIn:** [Your Profile](https://www.linkedin.com/in/marwan-ashraf-9846a1202/)
+- **Email:** marwanashrafmakhlouf@gmail.com
 - **Portfolio:** [yourwebsite.com](https://yourwebsite.com)
 
 ### Project Links
@@ -423,7 +423,7 @@ This project demonstrates:
 
 **⭐ If you find this project useful or interesting, please consider starring it on GitHub!**
 
-**Made with ❤️ and Python in Cairo, Egypt**
+
 
 ---
 
