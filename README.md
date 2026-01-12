@@ -196,7 +196,7 @@ cairo-realestate/
 6. **Deployment** - Serve predictions through Streamlit app
 
 ### Data Sources
-- **Platforms:** [List platforms - dubizzle Egypt, Aqarmap, etc.]
+- **Data is collected from publicly accessible real estate listing websites. All data scraped is publicly visible without authentication.**
 - **Collection Period:** [Start date] to [End date]
 - **Total Listings:** [X] properties across [Y] districts
 - **Geographic Coverage:** Cairo metropolitan area
@@ -379,9 +379,9 @@ Property listing data was collected from public sources for educational and non-
 
 **Your Name**
 - **GitHub:** [@MarwanAshrafMakhlouf](https://github.com/MarwanAshrafMakhlouf)
-- **LinkedIn:** [Your Profile](https://www.linkedin.com/in/marwan-ashraf-9846a1202/)
+- **LinkedIn:** [Linkedin Profile](https://www.linkedin.com/in/marwan-ashraf-9846a1202/)
 - **Email:** marwanashrafmakhlouf@gmail.com
-- **Portfolio:** [yourwebsite.com](https://yourwebsite.com)
+- **Portfolio:** [mywebsite.com](https://yourwebsite.com)
 
 ### Project Links
 - **Live Demo:** [App URL](YOUR_APP_URL)
