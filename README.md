@@ -1,6 +1,6 @@
 # Cairo Real Estate Intelligence Platform
 
-> 🏗️ **Status:** In Development | **Last Updated:** January 2026
+> 🏗️ **Status:** In Development | **Last Updated:** April 2026
 
 An end-to-end data science application that brings transparency to Cairo's residential real estate market through web scraping, exploratory analysis, interactive visualizations, and machine learning-powered property valuation.
 
