@@ -278,7 +278,7 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 - **SHAP** - Model explainability
 
 ### Data Collection
-- **BeautifulSoup / Scrapy** - Web scraping
+- **BeautifulSoup / Selinium** - Web scraping
 - **Custom utilities** - Arabic text normalization
 
 ### Development Tools
