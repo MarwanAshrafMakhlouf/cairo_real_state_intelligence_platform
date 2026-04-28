@@ -10,6 +10,6 @@ wheels/
 .venv
 # Configuration file 
 config.yaml
-logs/*.log          # ignore actual log files
+logs/          # ignore actual log files
 !logs/.gitkeep      # but keep the placeholder
 data/
