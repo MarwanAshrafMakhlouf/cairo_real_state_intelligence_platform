@@ -11,5 +11,5 @@ wheels/
 # Configuration file 
 config.yaml
 logs/          # ignore actual log files
-!logs/.gitkeep      # but keep the placeholder
+
 data/
