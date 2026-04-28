@@ -19,4 +19,5 @@ dependencies = [
     "selenium>=4.36.0",
     "streamlit>=1.50.0",
     "undetected-chromedriver>=3.5.5",
+    "webdriver-manager>=4.0.2",
 ]
