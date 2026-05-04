@@ -10,6 +10,7 @@ wheels/
 .venv
 # Configuration file 
 config.yaml
-logs/          # ignore actual log files
+# ignore logs and data directories
+logs/         
 
 data/
