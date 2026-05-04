@@ -2,7 +2,7 @@
 
 > 🏗️ **Status:** In Development | **Last Updated:** April 2026
 
-An end-to-end data science application that brings transparency to Cairo's residential real estate market through web scraping, exploratory analysis, interactive visualizations, and machine learning-powered property valuation.
+An end-to-end data science application that brings transparency to Cairo's residential real estate market through web scraping, exploratory analysis, interactive visualizations, Overprice detector and machine learning-powered property valuation.
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](YOUR_DEPLOYMENT_URL_HERE)
 ![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)
@@ -35,8 +35,8 @@ An end-to-end data science application that brings transparency to Cairo's resid
 The Cairo Real Estate Intelligence Platform addresses the opacity and inconsistency in Egypt's residential property market. This platform provides:
 
 - **Market transparency** through district-level price benchmarking
-- **Valuation support** via explainable ML predictions with confidence intervals
-- **Interactive exploration** of 1000+ Cairo property listings
+- **Valuation support** via explainable ML predictions with confidence intervals, Over-price calculator
+- **Interactive exploration** of 70k+ Cairo property listings
 - **Data-driven insights** into pricing patterns and market dynamics
 
 **This is a portfolio project demonstrating end-to-end data science capabilities from data collection to deployment.**
@@ -116,9 +116,6 @@ cd cairo-realestate
 ```bash
 # Using uv (recommended)
 uv sync
-
-# Alternative: using pip
-pip install -r requirements.txt
 ```
 
 **3. Run the application**
@@ -152,7 +149,7 @@ For detailed usage instructions, see the [User Guide](docs/USER_GUIDE.md).
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 cairo-realestate/
@@ -190,7 +187,7 @@ cairo-realestate/
 
 1. **Data Collection** - Web scraping from Cairo real estate platforms
 2. **Parsing** - Convert raw HTML/JSON to structured format
-3. **Cleaning** - Arabic text normalization and data validation
+3. **Cleaning** - Arabic text normalization, missing value handling, data validation
 4. **Feature Engineering** - Create derived features for modeling
 5. **Model Training** - Train and validate ML models
 6. **Deployment** - Serve predictions through Streamlit app
@@ -198,7 +195,7 @@ cairo-realestate/
 ### Data Sources
 - **Data is collected from publicly accessible real estate listing websites. All data scraped is publicly visible without authentication.**
 - **Collection Period:** [Start date] to [End date]
-- **Total Listings:** [X] properties across [Y] districts
+- **Total Listings:** 70k+ properties across 40 districts
 - **Geographic Coverage:** Cairo metropolitan area
 
 ### Data Quality
@@ -279,7 +276,7 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 
 ### Data Collection
 - **BeautifulSoup / Selinium** - Web scraping
-- **Custom utilities** - Arabic text normalization
+
 
 ### Development Tools
 - **uv** - Fast Python package management
@@ -292,29 +289,18 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 
 ### ✅ Version 1.0 (Current)
 - [x] Data collection from Cairo real estate platforms
-- [x] Arabic text normalization and cleaning
 - [x] Exploratory market analysis
 - [x] ML-powered price estimation with confidence intervals
+- [x] ML-power over-price deteticion and analysis
 - [x] Interactive Streamlit dashboard
 - [x] SHAP-based model explainability
 - [x] Deployment on Streamlit Cloud
 
-### 🔮 Version 1.5 (Planned)
-- [ ] **Semantic Search** - Natural language property queries in Arabic/English
-- [ ] **Enhanced Amenity Extraction** - Automated feature detection from descriptions
-- [ ] **Performance Optimizations** - Faster loading and prediction times
-
 ### 🚀 Version 2.0 (Future)
 - [ ] **Market Chatbot** - AI assistant for real estate questions using RAG
-- [ ] **Sentiment Analysis** - Detect overly enthusiastic or suspicious listings
 - [ ] **Time Series Forecasting** - Predict district-level price trends
 - [ ] **Geospatial Analysis** - Distance to amenities and transport
 
-### 🌟 Version 3.0 (Long-term)
-- [ ] **Advanced NLP Features** - Topic modeling, listing summarization
-- [ ] **User Accounts** - Save searches and get personalized alerts
-- [ ] **Mobile App** - Native iOS/Android application
-- [ ] **API Access** - Programmatic access for developers
 
 For detailed NLP enhancement plans, see [NLP_ROADMAP.md](docs/NLP_ROADMAP.md).
 
@@ -326,7 +312,7 @@ For detailed NLP enhancement plans, see [NLP_ROADMAP.md](docs/NLP_ROADMAP.md).
 - **Temporal:** Data collected during [time period] may not reflect current market conditions
 - **Coverage:** Limited to listings on public platforms, excludes private deals
 - **Self-reported:** Assumes listing information is accurate (not independently verified)
-- **Survivorship Bias:** Only includes active listings, not sold properties
+- **Survivorship Bias:** The majority of the data is active listings
 
 ### Model Limitations
 - **Generalization:** Trained on Cairo only, not applicable to other cities
@@ -335,7 +321,7 @@ For detailed NLP enhancement plans, see [NLP_ROADMAP.md](docs/NLP_ROADMAP.md).
 - **Outlier Performance:** May perform poorly on luxury or highly unique properties
 
 ### Technical Limitations
-- **Scalability:** Current implementation optimized for ~10K listings
+- **Scalability:** Current implementation optimized for ~70K listings
 - **Real-time Data:** Manual scraping required for updates (no live API integration)
 - **Language:** Interface primarily in English (Arabic support planned)
 
@@ -343,7 +329,7 @@ For detailed NLP enhancement plans, see [NLP_ROADMAP.md](docs/NLP_ROADMAP.md).
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! This is a portfolio project, but suggestions and improvements are appreciated.
 
@@ -390,16 +376,14 @@ Property listing data was collected from public sources for educational and non-
 
 ---
 
-## 🙏 Acknowledgments
-
-- Data sources: [List platforms used]
+##  Acknowledgments
 - Inspiration: [Projects or papers that influenced this work]
 - Tools: Streamlit, Plotly, SHAP, and the open-source community
 - Special thanks: [Mentors, colleagues, or resources]
 
 ---
 
-## 📚 Additional Documentation
+## Additional Documentation
 
 - **[METHODOLOGY.md](docs/METHODOLOGY.md)** - Detailed technical approach and decisions
 - **[INSIGHTS.md](docs/INSIGHTS.md)** - Comprehensive market findings and analysis
@@ -409,7 +393,7 @@ Property listing data was collected from public sources for educational and non-
 
 ---
 
-## 🎓 Learning Outcomes
+##  Learning Outcomes
 
 This project demonstrates:
 - **Data Engineering** - Web scraping, ETL pipelines, Arabic text normalization

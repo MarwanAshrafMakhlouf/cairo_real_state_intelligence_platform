@@ -465,15 +465,19 @@ def main():
     property_accumelator = []
     skipped_links = []
     scrapper = SmartScraper(config)
-     
+    fail_count = 0
     for location in links_df.iloc[start_index:].itertuples():
         current_index = location.Index
         
         try:
             page_soup = get_page_data(location.link, scrapper, config)
             if page_soup is None:
-
-                raise Exception(f"Failed to retrieve page for {location.link}")
+                # Smarter way to avoid failed link instead of stopping the whole process
+                logger.error(f"Failed to retrieve page for {location.link}")
+                logger.info("Sleeping the program for half an hour to avoid detection and then retrying...")
+                time.sleep(1800)  # Sleep for 30 minutes before retrying
+                start_index = current_index  # to retry this listing
+                continue
             page_data = property_schema.copy()
             if property_not_available(page_soup, config):
                 logger.info(f"Property at {location.link} is marked as sold or unavailable.")
@@ -482,21 +486,49 @@ def main():
                 
                 page_data = extract_basic_info(page_soup, page_data, config)
                 if not page_data:
-                    logger.warning(f"Basic info extraction failed for {location.title}, skipping this listing.")
+                    logger.warning(f"Basic info extraction failed for {location.link}, skipping this listing.")
                     skipped_links.append(location.link)
                     continue
 
                 page_data = highlights_extractor(config, page_data, page_soup)
                 if not page_data:
-                    raise ValueError("highlights_extractor returned empty dictionary")
+                    fail_count += 1
+                    logger.warning(f"Highlights extraction failed for {location.link} (attempt {fail_count}/3)")
+                    if fail_count <= 3:
+                        start_index = current_index  # to  retry this listing
+                        continue
+                    else:
+                        logger.error(f"Highlights extraction failed for {location.link} after 3 attempts, skipping this listing.")
+                        skipped_links.append(location.link)
+                        fail_count = 0  # Reset counter for next listings
+                        continue 
 
                 page_data = details_extractor(config, page_data, page_soup)
                 if not page_data:
-                    raise ValueError("details_extractor returned empty dictionary")
+                    fail_count += 1
+                    logger.warning(f"Details extraction failed for {location.link} (attempt {fail_count}/3)")
+                    if fail_count <= 3:
+                        start_index = current_index  # to  retry this listing
+                        continue
+                    else:
+                        logger.error(f"Details extraction failed for {location.link} after 3 attempts, skipping this listing.")
+                        skipped_links.append(location.link)
+                        fail_count = 0  # Reset counter for next listings
+                        continue
 
                 page_data = additional_features_extractor(config, page_data, page_soup)
                 if not page_data:
-                    raise ValueError("additional_features_extractor returned empty dictionary")
+                    fail_count += 1
+                    logger.warning(f"Additional features extraction failed for {location.link} (attempt {fail_count}/3)")
+                    if fail_count <= 3: 
+                        start_index = current_index  # to  retry this listing
+                        continue
+                    else:
+                        logger.error(f"Additional features extraction failed for {location.link} after 3 attempts, skipping this listing.")
+                        skipped_links.append(location.link)
+                        fail_count = 0  # Reset counter for next listings
+                        continue
+       
             page_data['title'] = location.title
             page_data['property_type'] = location.property_type
             page_data['sale_or_rent'] = location.sale_or_rent
@@ -522,8 +554,9 @@ def main():
                     skipped_links_df = pd.DataFrame(skipped_links, columns=['skipped_links'])
                     skipped_links_df.to_csv(config['data_source']['file_paths']['corrupted_links_file'], mode = 'a', header=False, index=False) 
                 skipped_links = []
+                time.sleep(randint(10, 15)) # After saving 1000 let's the loop sleep for a while to avoid detection
 
-        except Exception as e:
+        except (Exception,KeyboardInterrupt) as  e:
             logger.error(f"Error processing {location.link}: {e}")
             if property_accumelator:
                 
@@ -533,8 +566,8 @@ def main():
                     df_chunk = pd.DataFrame(property_accumelator)
                     df_chunk.to_csv(config['data_source']['file_paths']['OUTPUT_FILE'], index=False)
                     already_created = True
-                save_checkpoint(config, current_index + 1)
-                logger.info(f"Saved checkpoint at index {current_index + 1} after error")
+                save_checkpoint(config, current_index)
+                logger.info(f"Saved checkpoint at index {current_index} after error")
             if skipped_links:
                     logger.warning(f"Skipped links so far: {len(skipped_links)}")   
                     skipped_links_df = pd.DataFrame(skipped_links, columns=['skipped_links'])
