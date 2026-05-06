@@ -199,9 +199,9 @@ cairo-realestate/
 - **Geographic Coverage:** Cairo metropolitan area
 
 ### Data Quality
-- **Collection Success Rate:** [X]%
+- **Collection Success Rate:** 99.97%
 - **Data Retention After Cleaning:** [X]%
-- **Districts Covered:** [X] neighborhoods
+- **Districts Covered:** 40 Districts 
 - **Duplicate Rate:** [X]%
 
 For detailed pipeline documentation, see [METHODOLOGY.md](docs/METHODOLOGY.md).
