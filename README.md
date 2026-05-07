@@ -194,7 +194,7 @@ cairo-realestate/
 
 ### Data Sources
 - **Data is collected from publicly accessible real estate listing websites. All data scraped is publicly visible without authentication.**
-- **Collection Period:** [Start date] to [End date]
+- **Collection Period:**  2024-04-29  to 2026-05-04
 - **Total Listings:** 70k+ properties across 40 districts
 - **Geographic Coverage:** Cairo metropolitan area
 
@@ -204,7 +204,7 @@ cairo-realestate/
 - **Districts Covered:** 40 Districts 
 - **Duplicate Rate:** [X]%
 
-For detailed pipeline documentation, see [METHODOLOGY.md](docs/METHODOLOGY.md).
+For detailed scraping pipeline documentation, see [scraper.md](docs/scraper.md).
 
 ---
 
