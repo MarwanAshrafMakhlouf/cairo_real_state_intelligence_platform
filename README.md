@@ -1,6 +1,6 @@
 # Cairo Real Estate Intelligence Platform
 
-> 🏗️ **Status:** In Development | **Last Updated:** April 2026
+> 🏗️ **Status:** In Development | **Last Updated:** May 2026
 
 An end-to-end data science application that brings transparency to Cairo's residential real estate market through web scraping, exploratory analysis, interactive visualizations, Overprice detector and machine learning-powered property valuation.
 
@@ -295,6 +295,8 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 - [x] Interactive Streamlit dashboard
 - [x] SHAP-based model explainability
 - [x] Deployment on Streamlit Cloud
+- [x] Plotly Dashboards 
+- [x] MLFlow mointorying 
 
 ### 🚀 Version 2.0 (Future)
 - [ ] **Market Chatbot** - AI assistant for real estate questions using RAG
@@ -302,7 +304,7 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 - [ ] **Geospatial Analysis** - Distance to amenities and transport
 
 
-For detailed NLP enhancement plans, see [NLP_ROADMAP.md](docs/NLP_ROADMAP.md).
+For detailed RAG enhancement plans, see [RAG_ROADMAP.md](docs/NLP_ROADMAP.md).
 
 ---
 
@@ -367,18 +369,18 @@ Property listing data was collected from public sources for educational and non-
 - **GitHub:** [@MarwanAshrafMakhlouf](https://github.com/MarwanAshrafMakhlouf)
 - **LinkedIn:** [Linkedin Profile](https://www.linkedin.com/in/marwan-ashraf-9846a1202/)
 - **Email:** marwanashrafmakhlouf@gmail.com
-- **Portfolio:** [mywebsite.com](https://yourwebsite.com)
+- **Portfolio:** [mywebsite.com](https://marwanashrafmakhlouf.github.io/Portfolio/)
 
 ### Project Links
 - **Live Demo:** [App URL](YOUR_APP_URL)
-- **Blog Post:** [Medium Article](YOUR_BLOG_URL)
+- **Blog Post:** [Medium Article](https://medium.com/@marwanashraf593)
 - **Demo Video:** [YouTube](YOUR_VIDEO_URL)
 
 ---
 
 ##  Acknowledgments
 - Inspiration: [Projects or papers that influenced this work]
-- Tools: Streamlit, Plotly, SHAP, and the open-source community
+- Tools: Streamlit, Plotly, SHAP, Mlflow, Sklearn, Pandas, numpy, and the open-source community
 - Special thanks: [Mentors, colleagues, or resources]
 
 ---
@@ -411,4 +413,4 @@ This project demonstrates:
 
 ---
 
-*Last updated: April 2026*
+*Last updated: May 2026*
