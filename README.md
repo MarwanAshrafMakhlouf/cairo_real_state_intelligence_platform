@@ -163,10 +163,10 @@ cairo-realestate/
 │   ├── models/             # Trained model artifacts
 │   └── external/           # Reference data
 ├── notebooks/               # Jupyter notebooks
-│   ├── 01_scraping.ipynb
-│   ├── 02_cleaning.ipynb
-│   ├── 03_eda.ipynb
-│   └── 04_modeling.ipynb
+│   ├── scraper.ipynb
+│   ├── data_cleaner.ipynb
+│   ├── EDA.ipynb
+│   └── modeling.ipynb
 ├── src/                     # Source code modules
 │   ├── scraper/            # Web scraping
 │   ├── preprocessing/      # Data cleaning
@@ -174,10 +174,18 @@ cairo-realestate/
 │   └── utils/              # Utilities
 ├── tests/                   # Unit tests
 ├── docs/                    # Documentation
+│   ├── data_cleaning.md    # Cleaning decisions and findings
+│   ├── scraper.md          # Scraping pipeline documentation
+│   ├── METHODOLOGY.md      # Technical approach
+│   ├── INSIGHTS.md         # Market findings
+│   └── NLP_ROADMAP.md      # Future NLP plans
 ├── pyproject.toml          # Project configuration
 ├── requirements.txt        # Dependencies
 └── README.md              # This file
+
 ```
+
+---
 
 ---
 
@@ -187,24 +195,54 @@ cairo-realestate/
 
 1. **Data Collection** - Web scraping from Cairo real estate platforms
 2. **Parsing** - Convert raw HTML/JSON to structured format
-3. **Cleaning** - Arabic text normalization, missing value handling, data validation
+3. **Cleaning** - Arabic/English text normalization, missing value imputation, data validation
 4. **Feature Engineering** - Create derived features for modeling
 5. **Model Training** - Train and validate ML models
 6. **Deployment** - Serve predictions through Streamlit app
 
 ### Data Sources
 - **Data is collected from publicly accessible real estate listing websites. All data scraped is publicly visible without authentication.**
-- **Collection Period:**  2024-04-29  to 2026-05-04
+- **Collection Period:** 2024-04-29 to 2026-05-04
 - **Total Listings:** 70k+ properties across 40 districts
 - **Geographic Coverage:** Cairo metropolitan area
 
 ### Data Quality
 - **Collection Success Rate:** 99.97%
-- **Data Retention After Cleaning:** [X]%
-- **Districts Covered:** 40 Districts 
+- **Data Retention After Cleaning:** 99.73%
+- **Districts Covered:** 40 Districts
 - **Duplicate Rate:** 0%
 
-For detailed scraping pipeline documentation, see [scraper.md](docs/scraper.md).
+### Cleaning Highlights
+
+The dataset presented several real-world data challenges worth noting:
+
+- **Bilingual listings:** Titles appear in Arabic, English, or mixed within the same listing.
+  Every extraction and imputation step required separate handling for each language,
+  including colloquial Arabic spelling variants (e.g. دور تالت instead of الدور الثالث).
+
+- **Floor level imputation:** The `level` column started with ~6k filled values out of 70k.
+  Through a three-layer imputation strategy — property subtype logic, English regex extraction,
+  and Arabic regex extraction — coverage was extended to 50k+ listings.
+
+- **Rental frequency imputation:** ~2,430 rental listings had no frequency information.
+  Price distribution analysis (KDE) confirmed that unknown-frequency listings follow the same
+  distribution as monthly rentals, not daily. Imputation as monthly was validated across both
+  overall and property-type-specific distributions.
+
+- **Finishing level (delivery term):** Extracted from titles using a bilingual classifier
+  covering a quality ladder from بدون تشطيب (unfinished) to ultra super lux.
+  Coverage reached ~20k out of 70k — retained for EDA, excluded from the model due to
+  71% missingness.
+
+- **Off-plan detection:** Delivery date had ~69k nulls but the ~1k non-null values carried
+  real signal. A binary `is_off_plan` feature was derived (True for delivery year 2027+)
+  instead of dropping the column entirely.
+
+- **Deposit & insurance:** Present in only ~3k out of 14k rental listings, concentrated in
+  New Cairo (948) and Madinaty (938), accounting for 63% of all cases. Reflects compound
+  rental culture, not a city-wide norm.
+
+For full cleaning documentation, see [data_cleaning.md](docs/data_cleaning.md).
 
 ---
 
@@ -222,7 +260,7 @@ For detailed scraping pipeline documentation, see [scraper.md](docs/scraper.md).
 ### Model Details
 - **Algorithm:** [XGBoost / Random Forest]
 - **Training Set:** [X] listings (80% of data)
-- **Features:** Area, District, Bedrooms, Bathrooms, Finishing, Amenities
+- **Features:** Area, District, Bedrooms, Bathrooms, Finishing, Amenities, is_off_plan
 - **Validation:** 5-fold cross-validation + held-out test set
 - **Explainability:** SHAP values for feature importance
 
@@ -245,17 +283,32 @@ Model performance varies by district due to sample size and market dynamics. See
 - Semi-finished properties trade at [X]% discount
 - Finishing quality matters more in affluent districts
 
-**3. Pricing Anomalies**
+**3. Rental Market Structure**
+- Monthly rentals dominate the Cairo rental market, accounting for the vast majority of listings
+- Daily rentals are a small and distinct segment (only ~283 out of 14k rental listings),
+  concentrated in furnished units outside compound areas
+- Monthly rental median price: ~50k EGP for apartments, ~115k EGP for villas
+- Daily rental median price: ~15k EGP for villas — a completely separate price range
+
+**4. Compound Rental Norms**
+- Deposit and insurance requirements are concentrated in New Cairo and Madinaty (63% of all cases)
+- This reflects professionally managed compound rentals, not a city-wide standard
+- Landlords listing in these areas are expected to include deposit and insurance terms
+
+**5. Off-Plan vs Ready Properties**
+- [X]% of listings are off-plan (delivery 2027 or later)
+- Off-plan properties typically list at [X]% below ready-unit prices in the same district
+- [Add finding once EDA is complete]
+
+**6. Pricing Anomalies**
 - [X]% of listings are overpriced by more than 25% vs district median
 - [Y]% are potentially undervalued, representing opportunities
 - Outliers are concentrated in [specific property types/areas]
 
-**4. Size vs Value Relationship**
+**7. Size vs Value Relationship**
 - Price per sqm decreases for properties larger than [X] sqm
 - Optimal value range: [XX-XX] sqm in most districts
 - Smaller units command premium per sqm
-
-**5. [Additional insight based on your analysis]**
 
 For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 
@@ -273,10 +326,10 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 - **Scikit-learn** - ML pipeline and preprocessing
 - **XGBoost / Random Forest** - Prediction models
 - **SHAP** - Model explainability
+- **MLflow** - Experiment tracking and model monitoring
 
 ### Data Collection
-- **BeautifulSoup / Selinium** - Web scraping
-
+- **curl_cffi & Selenium** - Web scraping with anti-detection handling
 
 ### Development Tools
 - **uv** - Fast Python package management
@@ -287,22 +340,22 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 
 ## Development Roadmap
 
-###  Version 1.0 (Current)
+### Version 1.0 (Current)
 - [x] Data collection from Cairo real estate platforms
+- [x] Bilingual (Arabic/English) data cleaning pipeline
 - [x] Exploratory market analysis
 - [x] ML-powered price estimation with confidence intervals
-- [x] ML-power over-price deteticion and analysis
+- [x] ML-powered over-price detection and analysis
 - [x] Interactive Streamlit dashboard
 - [x] SHAP-based model explainability
 - [x] Deployment on Streamlit Cloud
-- [x] Plotly Dashboards 
-- [x] MLFlow mointorying 
+- [x] Plotly Dashboards
+- [x] MLFlow monitoring
 
 ### Version 2.0 (Future)
 - [ ] **Market Chatbot** - AI assistant for real estate questions using RAG
 - [ ] **Time Series Forecasting** - Predict district-level price trends
 - [ ] **Geospatial Analysis** - Distance to amenities and transport
-
 
 For detailed RAG enhancement plans, see [RAG_ROADMAP.md](docs/NLP_ROADMAP.md).
 
@@ -313,14 +366,18 @@ For detailed RAG enhancement plans, see [RAG_ROADMAP.md](docs/NLP_ROADMAP.md).
 ### Data Limitations
 - **Temporal:** Data collected from 2024-04-29 to 2026-05-04 may not reflect current market conditions.
 - **Coverage:** Limited to listings on public platforms, excludes private deals
-- **Self-reported:** Assumes listing information is accurate (not independently verified)
+- **Self-reported:** Assumes listing information is accurate, not independently verified
 - **Survivorship Bias:** The majority of the data is active listings
+- **Missing data:** Several columns (finishing level, floor level, rental frequency) required
+  imputation — see [data_cleaning.md](docs/data_cleaning.md) for full methodology
 
 ### Model Limitations
 - **Generalization:** Trained on Cairo only, not applicable to other cities
 - **Feature Gaps:** Cannot capture view quality, exact location nuances, or building condition
 - **Static Model:** Does not predict future price movements or market trends
 - **Outlier Performance:** May perform poorly on luxury or highly unique properties
+- **New Cairo Bias:** Dataset is heavily concentrated in New Cairo — model may underperform
+  in districts with fewer listings
 
 ### Technical Limitations
 - **Scalability:** Current implementation optimized for ~70K listings
@@ -365,11 +422,11 @@ Property listing data was collected from public sources for educational and non-
 
 ## Contact
 
-**Your Name**
+**Marwan Ashraf**
 - **GitHub:** [@MarwanAshrafMakhlouf](https://github.com/MarwanAshrafMakhlouf)
 - **LinkedIn:** [Linkedin Profile](https://www.linkedin.com/in/marwan-ashraf-9846a1202/)
 - **Email:** marwanashrafmakhlouf@gmail.com
-- **Portfolio:** [mywebsite.com](https://marwanashrafmakhlouf.github.io/Portfolio/)
+- **Portfolio:** [Portfolio](https://marwanashrafmakhlouf.github.io/Portfolio/)
 
 ### Project Links
 - **Live Demo:** [App URL](YOUR_APP_URL)
@@ -378,15 +435,14 @@ Property listing data was collected from public sources for educational and non-
 
 ---
 
-##  Acknowledgments
-- Inspiration: [Projects or papers that influenced this work]
-- Tools: Streamlit, Plotly, SHAP, Mlflow, Sklearn, Pandas, numpy, and the open-source community
-- Special thanks: [Mentors, colleagues, or resources]
+## Acknowledgments
+- Tools: Streamlit, Plotly, SHAP, MLflow, Sklearn, Pandas, NumPy, and the open-source community
 
 ---
 
 ## Additional Documentation
 
+- **[data_cleaning.md](docs/data_cleaning.md)** - Cleaning decisions, imputation methodology, and findings
 - **[METHODOLOGY.md](docs/METHODOLOGY.md)** - Detailed technical approach and decisions
 - **[INSIGHTS.md](docs/INSIGHTS.md)** - Comprehensive market findings and analysis
 - **[NLP_ROADMAP.md](docs/NLP_ROADMAP.md)** - Future NLP enhancement plans
@@ -395,21 +451,19 @@ Property listing data was collected from public sources for educational and non-
 
 ---
 
-##  Learning Outcomes
+## Learning Outcomes
 
 This project demonstrates:
-- **Data Engineering** - Web scraping, ETL pipelines, Arabic text normalization
+- **Data Engineering** - Web scraping, ETL pipelines, bilingual Arabic/English text normalization
 - **Data Science** - EDA, feature engineering, ML modeling, validation
 - **ML Ops** - Model deployment, serving predictions, explainability implementation
 - **Data Visualization** - Interactive dashboards, storytelling with data
 - **Software Engineering** - Code organization, testing, documentation
-- **Domain Expertise** - Real estate market analysis, pricing dynamics
+- **Domain Expertise** - Real estate market analysis, Cairo pricing dynamics
 
 ---
 
 **If you find this project useful or interesting, please consider starring it on GitHub!**
-
-
 
 ---
 
