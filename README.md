@@ -1,6 +1,6 @@
 # Cairo Real Estate Intelligence Platform
 
-> 🏗️ **Status:** In Development | **Last Updated:** May 2026
+> **Status:** In Development | **Last Updated:** May 2026
 
 An end-to-end data science application that brings transparency to Cairo's residential real estate market through web scraping, exploratory analysis, interactive visualizations, Overprice detector and machine learning-powered property valuation.
 
@@ -10,7 +10,7 @@ An end-to-end data science application that brings transparency to Cairo's resid
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Key Features](#key-features)
@@ -30,7 +30,7 @@ An end-to-end data science application that brings transparency to Cairo's resid
 
 ---
 
-## 🎯 Overview
+## Overview
 
 The Cairo Real Estate Intelligence Platform addresses the opacity and inconsistency in Egypt's residential property market. This platform provides:
 
@@ -55,26 +55,26 @@ A data-driven platform that collects real-world listings, normalizes messy Arabi
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 📊 Market Explorer
+### Market Explorer
 Interactive district comparison with filterable property listings, price per square meter analysis, and distribution visualizations highlighting market structure.
 
-### 🗺️ District Deep Dive
+###  District Deep Dive
 Neighborhood-level statistics, sample listings with contextual pricing benchmarks, and finishing quality breakdowns by district.
 
-### 💰 ML-Powered Price Estimator
+###  ML-Powered Price Estimator
 Fair market value predictions with confidence intervals, SHAP-based explanations showing feature contributions, and comparable properties for transparent reasoning.
 
-### 📈 Market Insights Dashboard
+###  Market Insights Dashboard
 Key findings from exploratory analysis, identification of overpriced/undervalued segments, and pricing anomaly detection.
 
-### ℹ️ Methodology & Documentation
+### Methodology & Documentation
 Complete transparency on data sources, model architecture, validation approach, and known limitations.
 
 ---
 
-## 🎬 Demo
+##  Demo
 
 ### Screenshots
 
@@ -98,7 +98,7 @@ Complete transparency on data sources, model architecture, validation approach, 
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 - Python 3.9 or higher
@@ -131,7 +131,7 @@ The app will open in your browser at `http://localhost:8501`
 
 ---
 
-## 📖 Usage
+## Usage
 
 ### Running the Streamlit App
 Start the interactive dashboard to explore Cairo's real estate market, compare districts, and get property valuations.
@@ -181,7 +181,7 @@ cairo-realestate/
 
 ---
 
-## 🔄 Data Pipeline
+## Data Pipeline
 
 ### Pipeline Overview
 
@@ -202,13 +202,13 @@ cairo-realestate/
 - **Collection Success Rate:** 99.97%
 - **Data Retention After Cleaning:** [X]%
 - **Districts Covered:** 40 Districts 
-- **Duplicate Rate:** [X]%
+- **Duplicate Rate:** 0%
 
 For detailed scraping pipeline documentation, see [scraper.md](docs/scraper.md).
 
 ---
 
-## 📊 Model Performance
+## Model Performance
 
 ### Metrics (Test Set)
 
@@ -231,7 +231,7 @@ Model performance varies by district due to sample size and market dynamics. See
 
 ---
 
-## 🔍 Key Insights
+## Key Insights
 
 ### Top Market Findings
 
@@ -261,7 +261,7 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Core Technologies
 - **Python 3.9+** - Primary programming language
@@ -285,9 +285,9 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 
 ---
 
-## 🗺️ Development Roadmap
+## Development Roadmap
 
-### ✅ Version 1.0 (Current)
+###  Version 1.0 (Current)
 - [x] Data collection from Cairo real estate platforms
 - [x] Exploratory market analysis
 - [x] ML-powered price estimation with confidence intervals
@@ -298,7 +298,7 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 - [x] Plotly Dashboards 
 - [x] MLFlow mointorying 
 
-### 🚀 Version 2.0 (Future)
+### Version 2.0 (Future)
 - [ ] **Market Chatbot** - AI assistant for real estate questions using RAG
 - [ ] **Time Series Forecasting** - Predict district-level price trends
 - [ ] **Geospatial Analysis** - Distance to amenities and transport
@@ -308,10 +308,10 @@ For detailed RAG enhancement plans, see [RAG_ROADMAP.md](docs/NLP_ROADMAP.md).
 
 ---
 
-## ⚠️ Limitations
+## Limitations
 
 ### Data Limitations
-- **Temporal:** Data collected during [time period] may not reflect current market conditions
+- **Temporal:** Data collected from 2024-04-29 to 2026-05-04 may not reflect current market conditions.
 - **Coverage:** Limited to listings on public platforms, excludes private deals
 - **Self-reported:** Assumes listing information is accurate (not independently verified)
 - **Survivorship Bias:** The majority of the data is active listings
@@ -354,7 +354,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -363,7 +363,7 @@ Property listing data was collected from public sources for educational and non-
 
 ---
 
-## 📧 Contact
+## Contact
 
 **Your Name**
 - **GitHub:** [@MarwanAshrafMakhlouf](https://github.com/MarwanAshrafMakhlouf)
@@ -407,7 +407,7 @@ This project demonstrates:
 
 ---
 
-**⭐ If you find this project useful or interesting, please consider starring it on GitHub!**
+**If you find this project useful or interesting, please consider starring it on GitHub!**
 
 
 
