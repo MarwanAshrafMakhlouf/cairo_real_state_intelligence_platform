@@ -9,6 +9,7 @@ dependencies = [
     "curl-cffi>=0.13.0",
     "fake-useragent>=2.2.0",
     "ipykernel>=6.31.0",
+    "ipywidgets>=8.1.8",
     "lxml>=6.0.2",
     "matplotlib>=3.9.4",
     "nbformat>=5.10.4",
