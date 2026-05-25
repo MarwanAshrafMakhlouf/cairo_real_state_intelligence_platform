@@ -23,8 +23,7 @@ import yaml
 logger = get_logger("Scraper")
 
 # Intialized the global variables
-CHECKPOINT_FILE = 'data/raw/checkpoint.json'
-OUTPUT_FILE = 'data/raw/properties_full_version.csv'
+
 """ This file contains the code for scraping the data from the website, 
 This will be created by the smartScrapper class"""
 
