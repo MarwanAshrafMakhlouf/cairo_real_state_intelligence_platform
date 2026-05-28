@@ -36,7 +36,7 @@ The Cairo Real Estate Intelligence Platform addresses the opacity and inconsiste
 
 - **Market transparency** through district-level price benchmarking
 - **Valuation support** via explainable ML predictions with confidence intervals, Over-price calculator
-- **Interactive exploration** of 70k+ Cairo property listings
+- **Interactive exploration** of 76k+ Cairo property listings
 - **Data-driven insights** into pricing patterns and market dynamics
 
 **This is a portfolio project demonstrating end-to-end data science capabilities from data collection to deployment.**
@@ -203,7 +203,7 @@ cairo-realestate/
 ### Data Sources
 - **Data is collected from publicly accessible real estate listing websites. All data scraped is publicly visible without authentication.**
 - **Collection Period:** 2024-04-29 to 2026-05-04
-- **Total Listings:** 70k+ properties across 40 districts
+- **Total Listings:** 76k+ properties across 40 districts
 - **Geographic Coverage:** Cairo metropolitan area
 
 ### Data Quality
@@ -220,7 +220,7 @@ The dataset presented several real-world data challenges worth noting:
   Every extraction and imputation step required separate handling for each language,
   including colloquial Arabic spelling variants (e.g. دور تالت instead of الدور الثالث).
 
-- **Floor level imputation:** The `level` column started with ~6k filled values out of 70k.
+- **Floor level imputation:** The `level` column started with ~6k filled values out of 76k.
   Through a three-layer imputation strategy — property subtype logic, English regex extraction,
   and Arabic regex extraction — coverage was extended to 50k+ listings.
 
@@ -231,7 +231,7 @@ The dataset presented several real-world data challenges worth noting:
 
 - **Finishing level (delivery term):** Extracted from titles using a bilingual classifier
   covering a quality ladder from بدون تشطيب (unfinished) to ultra super lux.
-  Coverage reached ~20k out of 70k — retained for EDA, excluded from the model due to
+  Coverage reached ~20k out of 76k — retained for EDA, excluded from the model due to
   71% missingness.
 
 - **Off-plan detection:** Delivery date had ~69k nulls but the ~1k non-null values carried
@@ -380,7 +380,7 @@ For detailed RAG enhancement plans, see [RAG_ROADMAP.md](docs/NLP_ROADMAP.md).
   in districts with fewer listings
 
 ### Technical Limitations
-- **Scalability:** Current implementation optimized for ~70K listings
+- **Scalability:** Current implementation optimized for ~76K listings
 - **Real-time Data:** Manual scraping required for updates (no live API integration)
 - **Language:** Interface primarily in English (Arabic support planned)
 
