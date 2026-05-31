@@ -222,8 +222,7 @@ def get_page_data(slug, scrapper ,config, max_retries = 5):
         finally:
             time.sleep(randint(1,3))  # Random delay to be polite
             
-   
-       
+     
     
 def save_checkpoint(config,last_processed_index):
     """Save the last processed index to a checkpoint file"""
@@ -266,6 +265,17 @@ def property_not_available(soup, config):
         logger.error(f"Error handling sold property: {e}")
         return False
 # Create the date formatter function 
+
+def get_description(soup, config):
+    try:
+        description = soup.select_one(config['data_source']['realstate_website']['selectors']['description'])
+        spans = description.find_all('span') 
+        if spans:
+            logger.info("Description extracted successfully")
+            return spans[0].text.strip()
+    except Exception as e:
+        logger.error(f"Error extracting description: {e}")
+        return None
 
 def standardize_date(date):
     """
@@ -447,7 +457,7 @@ def safe_append_to_csv(new_rows, config):
     df_chunk = df_chunk.reindex(columns=existing_columns)
     df_chunk.to_csv(file_path, mode='a', header=False, index=False)
 
-def main():
+def main(scrape_all = True):
     """The main function to run the scraper, it will read the config file, 
     load the links from the csv file, and loop over them to extract the data 
     and save it to a csv file with checkpointing in case of failure"""
@@ -458,6 +468,7 @@ def main():
     property_schema = {field: None for field in fields}
     links_df = pd.read_csv(config['data_source']['file_paths']['links_file'])
     start_index = load_checkpoint(config)
+    
     already_created = os.path.exists(config['data_source']['file_paths']['OUTPUT_FILE']) and start_index > 0
     if start_index > 0:
         logger.info(f"Resuming from index {start_index}")
@@ -481,7 +492,7 @@ def main():
             if property_not_available(page_soup, config):
                 logger.info(f"Property at {location.link} is marked as sold or unavailable.")
                 page_data['seller_name'] = 'Sold/Unavailable'
-            else:
+            elif scrape_all:
                 
                 page_data = extract_basic_info(page_soup, page_data, config)
                 if not page_data:
@@ -527,7 +538,14 @@ def main():
                         skipped_links.append(location.link)
                         fail_count = 0  # Reset counter for next listings
                         continue
-       
+                else:
+
+                    description = get_description(page_soup, config)
+                    if description:
+                        page_data['description'] = description
+                    else:
+                        logger.error(f"Failed to extract description for {location.link}")
+                        page_data['description'] = None
             page_data['title'] = location.title
             page_data['property_type'] = location.property_type
             page_data['sale_or_rent'] = location.sale_or_rent
