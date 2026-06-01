@@ -208,9 +208,9 @@ cairo-realestate/
 
 ### Data Quality
 - **Collection Success Rate:** 99.97%
-- **Data Retention After Cleaning:** 97.74%
+- **Data Retention After Cleaning:** 97.73%
 - **Districts Covered:** 40 Districts
-- **Duplicate Rate:** %2.26
+- **Duplicate Rate:** %2.2
 
 ### Cleaning Highlights
 
