@@ -341,16 +341,16 @@ For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
 ## Development Roadmap
 
 ### Version 1.0 (Current)
-- [x] Data collection from Cairo real estate platforms
-- [x] Bilingual (Arabic/English) data cleaning pipeline
-- [x] Exploratory market analysis
-- [x] ML-powered price estimation with confidence intervals
-- [x] ML-powered over-price detection and analysis
-- [x] Interactive Streamlit dashboard
-- [x] SHAP-based model explainability
-- [x] Deployment on Streamlit Cloud
-- [x] Plotly Dashboards
-- [x] MLFlow monitoring
+- [] Data collection from Cairo real estate platforms
+- [] Bilingual (Arabic/English) data cleaning pipeline
+- [] Exploratory market analysis
+- [] ML-powered price estimation with confidence intervals
+- [] ML-powered over-price detection and analysis
+- [] Interactive Streamlit dashboard
+- [] SHAP-based model explainability
+- [] Deployment on Streamlit Cloud
+- [] Plotly Dashboards
+- [] MLFlow monitoring
 
 ### Version 2.0 (Future)
 - [ ] **Market Chatbot** - AI assistant for real estate questions using RAG
