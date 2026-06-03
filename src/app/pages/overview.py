@@ -149,12 +149,12 @@ with col_main:
                               x = 'area (m²)', 
                               y = 'price',
                               color='price_tier',
-                              title = 'Price vs Area for filtered data')
+                              title = 'Price vs Area')
             st.plotly_chart(fig3, use_container_width=True)
     st.divider()
     st.markdown("### What does this tell us?")
 
-    top_district = filtered_df["district"].value_counts().index[0]
+    top_district = df["district"].value_counts().index[0]
     median_sale = filtered_df["price"].median()
     mean_sale = filtered_df["price"].mean()
     skew = filtered_df["price"].skew()
