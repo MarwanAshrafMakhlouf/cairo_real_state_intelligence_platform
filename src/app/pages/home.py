@@ -11,6 +11,12 @@ st.write("""
 st.divider()
 st.markdown("> Data reflects listing scraped in Q1 2026 and does not represent the full Caior market.")
 st.divider()
+st.write(
+    "This platform is built around four tools — explore the Cairo "
+    "real estate market through data visualizations, ask specific "
+    "market questions, estimate a property price using machine learning, "
+    "or chat directly with the data using the chatbot."
+)
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
@@ -37,7 +43,7 @@ with col4:
         st.switch_page("src/app/pages/chatbot.py")
 st.divider()
 st.markdown("### About & Links")
-st.caption("Built by Marwan Ashraf — Cairo Real Estate Intelligence Platform")
+st.caption("Built by Marwan Ashraf — Contact Info")
 
 col1, col2, col3, col4 = st.columns(4)
 
