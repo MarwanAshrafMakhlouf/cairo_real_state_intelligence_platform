@@ -4,7 +4,7 @@
 
 An end-to-end data science application that brings transparency to Cairo's residential real estate market through web scraping, exploratory analysis, interactive visualizations, Overprice detector and machine learning-powered property valuation.
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](YOUR_DEPLOYMENT_URL_HERE)
+[![Streamlit App it's live now](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cairorealstateintellplatform.streamlit.app/)
 ![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
@@ -273,44 +273,55 @@ Model performance varies by district due to sample size and market dynamics. See
 
 ### Top Market Findings
 
-**1. District Price Hierarchy**
-- [District X] commands highest prices at [XX] EGP/sqm
-- [District Y] offers best value with [XX] EGP/sqm
-- Premium districts show [X]% price premium over Cairo average
+**1. District Price Hierarch**y:
 
-**2. Finishing Quality Impact**
-- Luxury finishing adds approximately [X]% to property value
-- Semi-finished properties trade at [X]% discount
-- Finishing quality matters more in affluent districts
+- Madinaty commands the highest sale prices at 68,919 EGP/sqm, 18% above the Cairo median
+- Obour City offers the lowest at 25,000 EGP/sqm, 57% below the Cairo median
+- The spread between the most and least expensive districts is 2.75x
 
-**3. Rental Market Structure**
+**2. Furnished vs Unfurnished (rentals):**
+
+- Furnished rentals command 83% premium over unfurnished at 389 vs 212 EGP/sqm per month
+- This is your strongest amenity finding — nearly double the price per sqm just for furnishing
+- 9,012 furnished vs 6,739 unfurnished gives you enough data on both sides to trust it
+
+**3. Luxury concentration:**
+
+- Katameya has the highest luxury concentration at 9.5% of listings
+- Maadi second at 7.8%, New Cairo third at 6.6%
+- New developments like Mostakbal City and New Capital City have almost no luxury listings at 0.4% and   below — confirming they are volume markets not premium markets
+
+**4. Rental Market Structure**
 - Monthly rentals dominate the Cairo rental market, accounting for the vast majority of listings
 - Daily rentals are a small and distinct segment (only ~283 out of 14k rental listings),
   concentrated in furnished units outside compound areas
 - Monthly rental median price: ~50k EGP for apartments, ~115k EGP for villas
 - Daily rental median price: ~15k EGP for villas — a completely separate price range
 
-**4. Compound Rental Norms**
+**5. Compound Rental Norms**
 - Deposit and insurance requirements are concentrated in New Cairo and Madinaty (63% of all cases)
 - This reflects professionally managed compound rentals, not a city-wide standard
 - Landlords listing in these areas are expected to include deposit and insurance terms
 
-**5. Off-Plan vs Ready Properties**
-- [X]% of listings are off-plan (delivery 2027 or later)
-- Off-plan properties typically list at [X]% below ready-unit prices in the same district
-- [Add finding once EDA is complete]
+**6. Off-Plan vs Ready Properties**
+- 23.1% of listings are off-plan, 76.9% are ready
+- Off-plan properties list at 5.9% below ready units on average
+- In growth districts like Mostakbal City, off-plan actually commands a 42% premium over ready — investors are paying for future delivery in high-demand areas
 
-**6. Pricing Anomalies**
-- [X]% of listings are overpriced by more than 25% vs district median
-- [Y]% are potentially undervalued, representing opportunities
-- Outliers are concentrated in [specific property types/areas]
+**7. Pricing Anomalies**
+- 30.6% of sale listings are priced more than 25% above their district median
+- 24.2% are priced more than 25% below — representing potential value opportunities
+- Overpricing is more common in villas (10,138 listings) than apartments (7,584)
+- New Cairo concentrates the most anomalies on both ends — its size and diversity create the widest price spread of any distric
 
-**7. Size vs Value Relationship**
-- Price per sqm decreases for properties larger than [X] sqm
-- Optimal value range: [XX-XX] sqm in most districts
-- Smaller units command premium per sqm
+**8. Size vs Value Relationship**
+- Smallest units (under 50 sqm) command the highest price per sqm at 86,333 EGP/sqm
+- Best value range is 101-200 sqm where price per sqm drops to ~51,000
 
-For comprehensive market analysis, see [INSIGHTS.md](docs/INSIGHTS.md).
+- Large properties above 300 sqm rise again to 70,000-82,000 EGP/sqm reflecting the luxury villa segment
+- The U-shaped relationship means mid-size properties offer the best value per sqm in Cairo's sale market
+
+For comprehensive market analysis, check [Market Explorer](https://cairorealstateintellplatform.streamlit.app/explorer).
 
 ---
 
