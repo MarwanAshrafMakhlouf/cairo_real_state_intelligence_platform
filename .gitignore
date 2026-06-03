@@ -10,7 +10,10 @@ wheels/
 .venv
 # Configuration file 
 config.yaml
+locations.yaml
 # ignore logs and data directories
 logs/         
 
 data/
+.streamlit/
+important/
