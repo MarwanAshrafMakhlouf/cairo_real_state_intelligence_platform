@@ -35,7 +35,7 @@ def apply_sidebar_filters(df, locations):
 
     # --- Location ---
     st.markdown("**Location**")
-    district_options = ["All"] + sorted(locations.keys())
+    district_options = ["All"] + list(locations.keys())
     selected_district = st.selectbox("District", district_options)
 
     selected_area = "All"
@@ -52,10 +52,16 @@ def apply_sidebar_filters(df, locations):
                                                               ["All"] + sorted(neighborhood_options))
 
     # --- Price Range ---
-    filtered_for_price = df[
+    filtered_df = df[
         (df["property_type"] == selected_type_df) &
         (df["sale_or_rent"].str.lower() == selected_transaction.lower())
-    ]["price"].dropna()
+    ]
+
+    price_99 = filtered_df["price"].quantile(0.99)
+
+    filtered_for_price = filtered_df[filtered_df["price"] <= price_99]["price"].dropna()
+
+    median_for_outlier = filtered_df[filtered_df["price"] >= price_99]["price"].median()
 
     price_min = int(filtered_for_price.min()) if not filtered_for_price.empty else 0
     price_max = int(filtered_for_price.max()) if not filtered_for_price.empty else 10_000_000
@@ -65,7 +71,7 @@ def apply_sidebar_filters(df, locations):
                                         step=50_000, label_visibility="collapsed")
 
     # --- Area m² ---
-    area_vals = df["area (m²)"].dropna()
+    area_vals = df[df["area (m²)"] <= df["area (m²)"].quantile(0.99)]["area (m²)"].dropna()
     selected_area_m2 = st.slider("Area (m²)", 
                                           int(area_vals.min()), int(area_vals.max()),
                                           (int(area_vals.min()), int(area_vals.max())),
@@ -90,8 +96,10 @@ def apply_sidebar_filters(df, locations):
                                           horizontal=True, label_visibility="collapsed")
 
     # --- Floor Level ---
-    all_levels = sorted(df["level_clean"].dropna().unique().tolist())
-    selected_levels = st.multiselect("Floor level", all_levels)
+    selected_levels = None
+    if selected_type == "Apartment":
+        all_levels = sorted(df["level_clean"].dropna().unique().tolist())
+        selected_levels = st.multiselect("Floor level", all_levels)
 
     # --- Reset ---
     st.markdown("---")
@@ -140,7 +148,7 @@ def apply_sidebar_filters(df, locations):
         completion_map = {"Ready": "ready", "Off-plan": "off-plan"}
         filtered = filtered[filtered["completion status"] == completion_map[completion_choice]]
 
-    if selected_levels:
+    if selected_levels and selected_type=="Apartment":
         filtered = filtered[filtered["level_clean"].isin(selected_levels)]
 
-    return filtered, selected_type, selected_transaction
+    return filtered, selected_type, selected_transaction, median_for_outlier

@@ -8,7 +8,7 @@ with st.spinner("Loading market data..."):
     locations = location_loader()
 col_filter, col_main = st.columns([1, 3])
 with col_filter:
-    filtered_df, selected_type, selected_transaction = apply_sidebar_filters(df, locations)
+    filtered_df, selected_type, selected_transaction, outlier_median = apply_sidebar_filters(df, locations)
    
 with col_main:
     st.subheader("Market Overview")
@@ -151,6 +151,9 @@ with col_main:
                               color='price_tier',
                               title = 'Price vs Area')
             st.plotly_chart(fig3, use_container_width=True)
+    st.divider()
+    st.markdown("> Note: Top 1% of the values are excluded for clearer visualization")
+    st.markdown(f"> As the top 1% {selected_type.lower()}s  have a median {selected_transaction.lower()} price of {outlier_median/1000:,.0f}K EGP" )
     st.divider()
     st.markdown("### What does this tell us?")
 
