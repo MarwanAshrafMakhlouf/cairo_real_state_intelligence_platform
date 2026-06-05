@@ -50,7 +50,10 @@ def apply_sidebar_filters(df, locations):
             if neighborhood_options:
                 selected_neighborhood = st.selectbox("Neighborhood", 
                                                               ["All"] + sorted(neighborhood_options))
-
+    price_step = 50_000
+    if selected_transaction == "Rent":
+        price_step = 10000
+    
     # --- Price Range ---
     filtered_df = df[
         (df["property_type"] == selected_type_df) &
@@ -67,16 +70,47 @@ def apply_sidebar_filters(df, locations):
     price_max = int(filtered_for_price.max()) if not filtered_for_price.empty else 10_000_000
 
     st.markdown("**Price range (EGP)**")
-    selected_price = st.slider("", price_min, price_max, (price_min, price_max),
-                                        step=50_000, label_visibility="collapsed")
+    
+    price_min_input = st.number_input(
+            "Min Price", 
+            min_value=price_min, 
+            max_value=price_max, 
+            value=price_min, 
+            step=price_step
+        )
+    
+    price_max_input = st.number_input(
+            "Max Price", 
+            min_value=price_min, 
+            max_value=price_max, 
+            value=price_max, 
+            step=price_step
+        )
+
+    selected_price = (price_min_input, price_max_input)
 
     # --- Area m² ---
     area_vals = df[df["area (m²)"] <= df["area (m²)"].quantile(0.99)]["area (m²)"].dropna()
-    selected_area_m2 = st.slider("Area (m²)", 
-                                          int(area_vals.min()), int(area_vals.max()),
-                                          (int(area_vals.min()), int(area_vals.max())),
-                                          step=10)
 
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        area_min_input = st.number_input(
+            "Min Area", 
+            min_value=int(area_vals.min()), 
+            max_value=int(area_vals.max()), 
+            value=int(area_vals.min()), 
+            step=10
+        )
+    with col2:
+        area_max_input = st.number_input(
+            "Max Area", 
+            min_value=int(area_vals.min()), 
+            max_value=int(area_vals.max()), 
+            value=int(area_vals.max()), 
+            step=10
+        )
+    selected_area_m2 = (area_min_input, area_max_input)
     # --- Bedrooms ---
     st.markdown("**Bedrooms**")
     selected_bedrooms = st.multiselect("", ["Any", "1", "2", "3", "4+"], 

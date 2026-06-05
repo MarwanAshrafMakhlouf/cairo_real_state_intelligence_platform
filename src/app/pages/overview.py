@@ -26,9 +26,14 @@ with col_main:
         st.markdown(f"**For {selected_transaction}**")
        
     with col2:
-        st.markdown(f"**Median Price for {selected_type}**")
-        st.markdown(f"### {filtered_df['price'].median()/1000:,.0f}K EGP")
-        st.markdown(f"**For {selected_transaction}**")
+        if selected_transaction == 'Rent':
+            st.markdown(f"**Median Price for {selected_type}**")
+            st.markdown(f"### {filtered_df['price'].median()/1000:,.0f}K EGP")
+            st.markdown(f"**For {selected_transaction}**")
+        else:
+            st.markdown(f"**Median Price for {selected_type}**")
+            st.markdown(f"### {filtered_df['price'].median()/1000000:,.0f}M EGP")
+            st.markdown(f"**For {selected_transaction}**")
     with col3:
         st.markdown(f"**Most Active District**")
         st.markdown(f"### {filtered_df['district'].mode()[0]}")
@@ -153,7 +158,10 @@ with col_main:
             st.plotly_chart(fig3, use_container_width=True)
     st.divider()
     st.markdown("> Note: Top 1% of the values are excluded for clearer visualization")
-    st.markdown(f"> As the top 1% {selected_type.lower()}s  have a median {selected_transaction.lower()} price of {outlier_median/1000:,.0f}K EGP" )
+    if selected_transaction == 'Rent':
+        st.markdown(f"> As the top 1% {selected_type.lower()}s  have a median {selected_transaction.lower()} price of {outlier_median/1000:,.0f}K EGP" )
+    else:
+        st.markdown(f"> As the top 1% {selected_type.lower()}s  have a median {selected_transaction.lower()} price of {outlier_median/1000000:,.0f}M EGP" )
     st.divider()
     st.markdown("### What does this tell us?")
 
