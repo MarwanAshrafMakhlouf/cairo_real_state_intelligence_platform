@@ -32,7 +32,7 @@ with col_main:
             st.markdown(f"**For {selected_transaction}**")
         else:
             st.markdown(f"**Median Price for {selected_type}**")
-            st.markdown(f"### {filtered_df['price'].median()/1000000:,.0f}M EGP")
+            st.markdown(f"### {filtered_df['price'].median()/1000000:,.1f}M EGP")
             st.markdown(f"**For {selected_transaction}**")
     with col3:
         st.markdown(f"**Most Active District**")
@@ -161,7 +161,7 @@ with col_main:
     if selected_transaction == 'Rent':
         st.markdown(f"> As the top 1% {selected_type.lower()}s  have a median {selected_transaction.lower()} price of {outlier_median/1000:,.0f}K EGP" )
     else:
-        st.markdown(f"> As the top 1% {selected_type.lower()}s  have a median {selected_transaction.lower()} price of {outlier_median/1000000:,.0f}M EGP" )
+        st.markdown(f"> As the top 1% {selected_type.lower()}s  have a median {selected_transaction.lower()} price of {outlier_median/1000000:,.1f}M EGP" )
     st.divider()
     st.markdown("### What does this tell us?")
 
